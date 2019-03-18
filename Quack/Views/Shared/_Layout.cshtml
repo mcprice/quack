@@ -3,40 +3,60 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Quack</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @using System.Text.RegularExpressions;
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    @{
+        string titleClasses = Regex.Replace(ViewBag.Title, @"([a-z])([A-Z])", "$1-$2").ToLower();
+
+        string homeClasses = string.Empty;
+        if (ViewBag.Title == "Home")
+        {
+            homeClasses += "bg-transparent";
+        }
+        else
+        {
+            homeClasses += "bg-light";
+        }
+
+    }
+    <div class="container-fluid body-content @titleClasses">
+        <div class="navbar navbar-expand-lg navbar-light @homeClasses justify-content-between sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img style="width:80px;" src="~/Content/Images/logo.png" class="d-inline-block align-middle" alt="">
+
+                </a>
+
+                <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav navbar-collapse" id="navbarNav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light text-dark" href="/user/register">Register</a>
+                    </li>
                 </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="container body-content">
+            <p>&copy; @DateTime.Now.Year - Quack</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/js")
+    @RenderSection("ViewsJS");
     @RenderSection("scripts", required: false)
 </body>
 </html>
