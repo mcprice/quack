@@ -14,13 +14,16 @@ namespace Quack.Models
         internal int Feed(string location, string feedTime, string numberFed, string feedType, string gramsFed)
         {
             DateTime timeFed = DateTime.Parse(feedTime);
-
             SqlConnection conn = new SqlConnection();
+#if DEBUG
             conn.ConnectionString =
             "Data Source=MATT-PC\\SQLEXPRESS;" +
             "Initial Catalog=QuackDb;" +
             "User id=matt;" +
             "Password=rslt4499;";
+#else
+            conn.ConnectionString = Helpers.GetRDSConnectionString();
+#endif
 
             string queryString = "INSERT INTO Feed (FeedTime, FeedType, FeedLocation, FeedGroupSize, FeedGrams, UserID ) VALUES " +
                 "(@feedTime, @feedType, @location, @numberFed, @gramsFed, @userID)";
@@ -56,11 +59,17 @@ namespace Quack.Models
             DataTable t = new DataTable();
 
             SqlConnection conn = new SqlConnection();
+
+#if DEBUG
             conn.ConnectionString =
             "Data Source=MATT-PC\\SQLEXPRESS;" +
             "Initial Catalog=QuackDb;" +
             "User id=matt;" +
             "Password=rslt4499;";
+#else
+            conn.ConnectionString = Helpers.GetRDSConnectionString();
+#endif
+
 
             string queryString = "SELECT * FROM dbo.Feed"; // Obviously not ideal to just blindly select * in production...
 

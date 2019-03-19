@@ -12,3 +12,9 @@
         jQuery(".navbar").removeClass("not-at-top");
     }
 };
+
+jQuery(document).ready(function () {
+    
+});
+
+    

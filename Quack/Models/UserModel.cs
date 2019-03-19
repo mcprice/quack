@@ -13,11 +13,15 @@ namespace Quack.Models
         public int Register(string email, string password, string name) {
 
             SqlConnection conn = new SqlConnection();
+#if DEBUG
             conn.ConnectionString =
             "Data Source=MATT-PC\\SQLEXPRESS;" +
             "Initial Catalog=QuackDb;" +
             "User id=matt;" +
             "Password=rslt4499;";
+#else
+            conn.ConnectionString = Helpers.GetRDSConnectionString();
+#endif
 
             String queryString = "INSERT INTO Users (EmailAddress, Name, Password ) output INSERTED.UserID VALUES (@email, @name, @password)";
             int insertedID = 0;
@@ -58,11 +62,15 @@ namespace Quack.Models
             }
 
             SqlConnection conn = new SqlConnection();
+#if DEBUG
             conn.ConnectionString =
             "Data Source=MATT-PC\\SQLEXPRESS;" +
             "Initial Catalog=QuackDb;" +
             "User id=matt;" +
             "Password=rslt4499;";
+#else
+            conn.ConnectionString = Helpers.GetRDSConnectionString();
+#endif
 
             string queryString = "DELETE FROM dbo.Users WHERE UserID = @userID";
             int rowsEffected = 0;
@@ -90,15 +98,16 @@ namespace Quack.Models
         internal bool FindDuplicateEmail(string email)
         {
             bool emailExists = false;
-
-            SqlConnection conn = new SqlConnection
-            {
-                ConnectionString =
+            SqlConnection conn = new SqlConnection();
+#if DEBUG
+            conn.ConnectionString =
             "Data Source=MATT-PC\\SQLEXPRESS;" +
             "Initial Catalog=QuackDb;" +
             "User id=matt;" +
-            "Password=rslt4499;"
-            };
+            "Password=rslt4499;";
+#else
+            conn.ConnectionString = Helpers.GetRDSConnectionString();
+#endif
 
             string queryString = "SELECT count(UserID) FROM dbo.Users WHERE EmailAddress = @email";
 
@@ -133,11 +142,15 @@ namespace Quack.Models
             bool sessionCreated = false;
 
             SqlConnection conn = new SqlConnection();
+#if DEBUG
             conn.ConnectionString =
             "Data Source=MATT-PC\\SQLEXPRESS;" +
             "Initial Catalog=QuackDb;" +
             "User id=matt;" +
             "Password=rslt4499;";
+#else
+            conn.ConnectionString = Helpers.GetRDSConnectionString();
+#endif
 
             string queryString = "SELECT TOP 1 UserID, EmailAddress, Name FROM dbo.Users WHERE EmailAddress = @email AND Password = @password";
 
