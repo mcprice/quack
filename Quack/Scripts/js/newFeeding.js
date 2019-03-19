@@ -1,24 +1,28 @@
 ﻿jQuery(document).ready(function () {
-    jQuery("#login-form").on("submit", function (e) {
+   
+    jQuery("#feed-form").on("submit", function (e) {
         e.preventDefault();
 
-        var newUser =
+        var newFeed =
         {
-            email: jQuery("#email").val(),
-            password: jQuery("#password").val()
+            location: jQuery("#location").val(),
+            feedTime: jQuery("#feedTime").val(),
+            numberFed: jQuery("#numberFed").val(),
+            feedType: jQuery("#feedType").val(),
+            gramsFed: jQuery("#gramsFed").val()
         };
 
         jQuery.ajax({
-            url: "/User/Login",
-            data: newUser,
+            url: "/Report/Feed",
+            data: newFeed,
             cache: false,
             type: 'POST',
             success: function (data) {
                 if (data === "1") {
-                    location.href = "/";
+                    alert("Your feeding has been recorded. Thank you!");
                 }
                 else {
-                    alert("Login failed. Did you type your email and password correctly?");
+                    alert("Something went wrong while trying to save your feeding event. Please try again.");
                 }
             }
         });

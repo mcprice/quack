@@ -15,19 +15,21 @@ namespace Quack.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(FormCollection collection)
+        public JsonResult Feed(FormCollection collection)
         {
             try
             {
-                string email = collection["email"];
-                string name = collection["name"];
-                string pass = collection["password"];
+                string location = collection["location"];
+                string feedTime = collection["feedTime"];
+                string numberFed = collection["numberFed"];
+                string feedType = collection["feedType"];
+                string gramsFed = collection["gramsFed"];
 
                 var model = new ReportModel();
 
-                int rowsEffected = model.Feed();
+                int rowsEffected = model.Feed(location, feedTime, numberFed, feedType, gramsFed);
 
-                if (rowsEffected > 0)
+                if (rowsEffected == 1)
                 {
                     return Json("1", JsonRequestBehavior.AllowGet);
                 }
