@@ -48,15 +48,18 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark">Welcome back, @PageData["userName"]!</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Report/NewFeeding"><span class="spacer-line-v">|</span>Report a Feeding</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Report/AllFeedings">View All Feedings</a>
+                            </li>
                             if (!pageTitle.Equals("Home"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" href="/">Home</a>
                                 </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Report/NewFeeding"><span class="spacer-line-v">|</span>Report Feeding</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/user/logout">Logout</a>
                             </li>

@@ -16,7 +16,7 @@
             type: 'POST',
             success: function (data) {
                 if (data === "1") {
-                    alert("User Created");
+                    alert("Your user account has been created. You may now login.");
                     $('#registration-form')[0].reset();
                 }
                 else if (data === "2") {

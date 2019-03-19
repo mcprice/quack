@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
@@ -48,6 +49,43 @@ namespace Quack.Models
             }
 
             return rowsEffected;
+        }
+
+        internal DataTable GetAllFeedings()
+        {
+            DataTable t = new DataTable();
+
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            "Data Source=MATT-PC\\SQLEXPRESS;" +
+            "Initial Catalog=QuackDb;" +
+            "User id=matt;" +
+            "Password=rslt4499;";
+
+            string queryString = "SELECT * FROM dbo.Feed"; // Obviously not ideal to just blindly select * in production...
+
+            using (conn)
+            {
+                SqlCommand command = new SqlCommand(queryString, conn);
+
+                conn.Open();
+
+                try
+                {
+                    // create data adapter
+                    SqlDataAdapter da = new SqlDataAdapter(command);
+                    // this will query your database and return the result to your datatable
+                    da.Fill(t);
+
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    conn.Close();
+                }
+            }
+
+            return t;
         }
     }
 }

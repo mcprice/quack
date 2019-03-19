@@ -20,6 +20,7 @@
             success: function (data) {
                 if (data === "1") {
                     alert("Your feeding has been recorded. Thank you!");
+                    $('#feed-form')[0].reset();
                 }
                 else {
                     alert("Something went wrong while trying to save your feeding event. Please try again.");

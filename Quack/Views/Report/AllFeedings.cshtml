@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "New Feeding";
+}
+
+@{
+    if (!PageData["loggedIn"])
+    {
+        Response.Redirect(Url.Action("Login", "User"));
+    }
+}
+
+<div class="container body-content">
+    <h2>View Feedings - Admin Role Only (In Future)</h2>
+
+    <table id="PS3" class="table">
+        <tr id="Parameter_name">
+            <th>ID</th>
+            <th>Feed Time</th>
+            <th>Feed Type</th>
+            <th>Feed Location (Coords)</th>
+            <th># of Ducks Fed</th>
+            <th>Amount(g) Fed</th>
+            <th>User Who Submitted</th>
+        </tr>
+        @{
+            var dt = ViewBag.Feedings as System.Data.DataTable;
+
+            foreach (System.Data.DataRow dr in dt.Rows)
+            {
+                <tr>
+                    @foreach (System.Data.DataColumn col in dt.Columns)
+                    {
+                        <td>@dr[col.ColumnName].ToString()</td>
+                    }
+                </tr>
+            }
+
+        }
+    </table>
+</div>
+
+
+@section ViewsJS
+{
+    
+}
