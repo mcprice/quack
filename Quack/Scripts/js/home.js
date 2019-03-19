@@ -7,6 +7,6 @@
         jQuery(".navbar").addClass("bg-light");
     } else {
         jQuery(".navbar").addClass("bg-transparent");
-        jQuery(".navbar").removClass("bg-light");
+        jQuery(".navbar").removeClass("bg-light");
     }
 };

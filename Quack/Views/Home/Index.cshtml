@@ -2,11 +2,23 @@
     ViewBag.Title = "Home";
 }
 
+@{ 
+    var reportFeedingLink = string.Empty;
+
+    if (PageData["loggedIn"])
+    {
+        reportFeedingLink = "/Feeding/New";
+    }
+    else
+    {
+        reportFeedingLink = "/User/Register";
+    }
+}
 <div class="jumbotron duck-feed">
     <div class="container">
         <h1>Quack</h1>
         <p class="lead">Quack crowdsources data on how ducks are being fed in parks around the world! Help us help the ducks in your local area by reporting your most recent duck feeding here.</p>
-        <p><a href="/user/register" class="btn btn-success btn-lg">Report a Duck Feeding &raquo;</a></p>
+        <p><a href="@reportFeedingLink" class="btn btn-success btn-lg">Report a Duck Feeding &raquo;</a></p>
     </div>
 </div>
 
@@ -19,7 +31,7 @@
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempor ex id maximus facilisis. Fusce at ligula justo. Etiam accumsan diam ac sapien lacinia, id convallis dui blandit. Mauris et turpis tempus, lacinia metus at, fringilla eros. Ut efficitur eleifend neque, eu ultrices turpis ultricies ut. Aenean a laoreet neque. Morbi accumsan tincidunt tortor non lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer pharetra erat nec ligula tempor, maximus iaculis enim dignissim. Donec fringilla purus ligula, ut ultricies elit ornare eget. Fusce eget mi gravida massa tincidunt hendrerit. Proin sit amet arcu elit. Duis interdum at urna sed interdum. Quisque eget blandit ligula, ut eleifend tellus. Vivamus eget arcu sodales erat gravida convallis.
             </p>
-            <p><a class="btn btn-default" href="https://www.google.com">Read more &raquo;</a></p>
+            <p><a class="btn btn-default" href="#">Read more &raquo;</a></p>
         </div>
     </div>
     <div class="row">
@@ -28,13 +40,13 @@
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempor ex id maximus facilisis. Fusce at ligula justo. Etiam accumsan diam ac sapien lacinia, id convallis dui blandit. Mauris et turpis tempus, lacinia metus at, fringilla eros. Ut efficitur eleifend neque, eu ultrices turpis ultricies ut. Aenean a laoreet neque. Morbi accumsan tincidunt tortor non lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer pharetra erat nec ligula tempor, maximus iaculis enim dignissim. Donec fringilla purus ligula, ut ultricies elit ornare eget. Fusce eget mi gravida massa tincidunt hendrerit. Proin sit amet arcu elit. Duis interdum at urna sed interdum. Quisque eget blandit ligula, ut eleifend tellus. Vivamus eget arcu sodales erat gravida convallis.
             </p>
-            <p><a class="btn btn-default" href="https://www.google.com">Read more &raquo;</a></p>
+            <p><a class="btn btn-default" href="#">Read more &raquo;</a></p>
         </div>
     </div>
 </div>
 
 @section ViewsJS
 {
-    <script type="text/javascript" src="@Url.Content("/Scripts/views/home.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/js/home.js")"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/css/home.css" />
 }

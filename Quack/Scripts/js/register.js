@@ -8,14 +8,20 @@
             name: jQuery("#first-name").val(),
             password: jQuery("#password").val()
         };
-      
+
         jQuery.ajax({
             url: "/User/Create",
             data: newUser,
             cache: false,
             type: 'POST',
             success: function (data) {
-                console.log(data);
+                if (data === "1") {
+                    alert("User Created");
+                    $('#registration-form')[0].reset();
+                }
+                else if (data === "2") {
+                    alert("The account was not created because there is already an account associated with '" + jQuery("#email").val() + "'.");
+                }
             }
         });
     });

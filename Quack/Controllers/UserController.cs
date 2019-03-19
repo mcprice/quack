@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quack.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,21 +15,47 @@ namespace Quack.Controllers
             return View();
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Login()
         {
             return View();
         }
 
-        // GET: User/Create
-        public ActionResult Create()
+        public ActionResult Logout()
         {
-            return View();
+            Session.Clear();
+
+            return View("Login");
         }
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Login(FormCollection collection)
+        {
+            try
+            {
+                string email = collection["email"];
+
+                var model = new UserModel();
+
+                bool loggedIn = model.Login(email, collection["password"]);
+
+                if (loggedIn)
+                {
+                    return Json("1", JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+
+            return Json("0", JsonRequestBehavior.AllowGet);
+        }
+
+        // POST: User/Create
+        [HttpPost]
+        public JsonResult Create(FormCollection collection)
         {
             try
             {
@@ -36,56 +63,30 @@ namespace Quack.Controllers
                 String email = collection["email"];
                 String name = collection["name"];
                 String pass = collection["password"];
-                return RedirectToAction("Index");
+
+                var model = new UserModel();
+
+                if (model.FindDuplicateEmail(email))
+                {
+                    return Json("2", JsonRequestBehavior.AllowGet);
+                }
+
+                int rowsEffected = model.Register(email, pass, name);
+
+                if (rowsEffected > 0)
+                {
+                    return Json("1", JsonRequestBehavior.AllowGet);
+                } 
+                
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                System.Diagnostics.Debug.WriteLine(e);
             }
+
+            return Json("0", JsonRequestBehavior.AllowGet);
         }
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

@@ -1,8 +1,6 @@
 ﻿CREATE TABLE Users (
   UserID INT NOT NULL IDENTITY PRIMARY KEY,
-  UserName VARCHAR(100)  NOT NULL,
-  Password VARCHAR(100) NOT NULL,
-  FirstName VARCHAR(100),
-  LastName VARCHAR(100),
-  EmailAddress VARCHAR(250)
+  EmailAddress VARCHAR(250),
+  Name VARCHAR(100),
+  Password VARCHAR(100) NOT NULL
 );

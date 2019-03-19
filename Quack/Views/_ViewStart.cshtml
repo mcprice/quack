@@ -1,3 +1,13 @@
 ﻿@{
+
+    PageData["loggedIn"] = false;
+    PageData["userName"] = string.Empty;
+    if (Session != null && Session["UserID"] != null)
+    {
+        PageData["loggedIn"] = true;
+
+        PageData["userName"] = Session["UserName"] as string;
+    }
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
