@@ -10,14 +10,12 @@ namespace Quack.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Retrieve the home page view.
+        /// </summary>
+        /// <returns>The rendered view tempalate</returns>
         public ActionResult Index()
         {
-            var model = new ReportModel();
-
-            DataTable data = model.GetAllFeedings();
-
-            ViewBag.Feedings = data;
-
             return View();
         }
     }

@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Quack</title>
-    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/common.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content//mapbox-gl.css" />
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -37,7 +40,7 @@
         <div class="navbar navbar-expand-md navbar-light @homeNavBarClasses justify-content-between sticky-top">
             <div class="container">
                 <a class="navbar-brand order-md-last" href="/">
-                    <img style="width:80px;" src="~/Content/Images/logo.png" class="d-inline-block align-middle" alt="">
+                    <img style="width:80px;" src="~/Content/images/logo.png" class="d-inline-block align-middle" alt="">
 
                 </a>
 

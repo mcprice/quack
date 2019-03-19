@@ -10,17 +10,20 @@ namespace Quack.Models
 {
     public class UserModel
     {
+        /// <summary>
+        /// Register a new quack account and store in db. hashes password.
+        /// </summary>
+        /// <param name="email">Users' email address</param>
+        /// <param name="password">Users' password</param>
+        /// <param name="name">The users' name</param>
+        /// <returns>The ID of the inserted user</returns>
         public int Register(string email, string password, string name) {
 
             SqlConnection conn = new SqlConnection();
 #if DEBUG
-            conn.ConnectionString =
-            "Data Source=MATT-PC\\SQLEXPRESS;" +
-            "Initial Catalog=QuackDb;" +
-            "User id=matt;" +
-            "Password=rslt4499;";
+            conn.ConnectionString = Constants.debugSqlConnection;
 #else
-            conn.ConnectionString = Helpers.GetRDSConnectionString();
+            conn.ConnectionString = Constants.prodSqlConnection;
 #endif
 
             String queryString = "INSERT INTO Users (EmailAddress, Name, Password ) output INSERTED.UserID VALUES (@email, @name, @password)";
@@ -53,6 +56,11 @@ namespace Quack.Models
             return insertedID;
         }
 
+        /// <summary>
+        /// Deletes a user by ID
+        /// </summary>
+        /// <param name="userID">The ID to delete</param>
+        /// <returns>The number of rows effected</returns>
         public int DeleteUser(int? userID)
         {
             // Early exit if no userid is passed in.
@@ -63,13 +71,9 @@ namespace Quack.Models
 
             SqlConnection conn = new SqlConnection();
 #if DEBUG
-            conn.ConnectionString =
-            "Data Source=MATT-PC\\SQLEXPRESS;" +
-            "Initial Catalog=QuackDb;" +
-            "User id=matt;" +
-            "Password=rslt4499;";
+            conn.ConnectionString = Constants.debugSqlConnection;
 #else
-            conn.ConnectionString = Helpers.GetRDSConnectionString();
+            conn.ConnectionString = Constants.prodSqlConnection;
 #endif
 
             string queryString = "DELETE FROM dbo.Users WHERE UserID = @userID";
@@ -95,18 +99,19 @@ namespace Quack.Models
             return rowsEffected;
         }
 
+        /// <summary>
+        /// Detect whether the users chosen email is a duplicate
+        /// </summary>
+        /// <param name="email">The email address to check</param>
+        /// <returns>True or false. True if duplicate is found.</returns>
         internal bool FindDuplicateEmail(string email)
         {
             bool emailExists = false;
             SqlConnection conn = new SqlConnection();
 #if DEBUG
-            conn.ConnectionString =
-            "Data Source=MATT-PC\\SQLEXPRESS;" +
-            "Initial Catalog=QuackDb;" +
-            "User id=matt;" +
-            "Password=rslt4499;";
+            conn.ConnectionString = Constants.debugSqlConnection;
 #else
-            conn.ConnectionString = Helpers.GetRDSConnectionString();
+            conn.ConnectionString = Constants.prodSqlConnection;
 #endif
 
             string queryString = "SELECT count(UserID) FROM dbo.Users WHERE EmailAddress = @email";
@@ -137,19 +142,21 @@ namespace Quack.Models
             return emailExists;
         }
 
+        /// <summary>
+        /// Login to quack. Validate user credentials and create session.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="pass">User password</param>
+        /// <returns>True or false. True of user is logged in</returns>
         internal bool Login(string email, string pass)
         {
             bool sessionCreated = false;
 
             SqlConnection conn = new SqlConnection();
 #if DEBUG
-            conn.ConnectionString =
-            "Data Source=MATT-PC\\SQLEXPRESS;" +
-            "Initial Catalog=QuackDb;" +
-            "User id=matt;" +
-            "Password=rslt4499;";
+            conn.ConnectionString = Constants.debugSqlConnection;
 #else
-            conn.ConnectionString = Helpers.GetRDSConnectionString();
+            conn.ConnectionString = Constants.prodSqlConnection;
 #endif
 
             string queryString = "SELECT TOP 1 UserID, EmailAddress, Name FROM dbo.Users WHERE EmailAddress = @email AND Password = @password";

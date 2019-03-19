@@ -25,11 +25,7 @@ namespace Quack
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                       "~/Scripts/common.js",
                       "~/Scripts/mapbox-gl.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/common.css",
-                      "~/Content/mapbox-gl.css"));
+           
         }
     }
 }

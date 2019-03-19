@@ -11,18 +11,23 @@ namespace Quack.Models
 {
     public class ReportModel
     {
+        /// <summary>
+        /// Store a duck feeding in the database.
+        /// </summary>
+        /// <param name="location">Latitude and Longitude coordinates of where the feeding occurred</param>
+        /// <param name="feedTime">The time the feeding happened</param>
+        /// <param name="numberFed">The number of ducks fed</param>
+        /// <param name="feedType">The type of food fed to the ducks</param>
+        /// <param name="gramsFed">The amount in grams fed</param>
+        /// <returns>the number of rows effected by the query</returns>
         internal int Feed(string location, string feedTime, string numberFed, string feedType, string gramsFed)
         {
             DateTime timeFed = DateTime.Parse(feedTime);
             SqlConnection conn = new SqlConnection();
 #if DEBUG
-            conn.ConnectionString =
-            "Data Source=MATT-PC\\SQLEXPRESS;" +
-            "Initial Catalog=QuackDb;" +
-            "User id=matt;" +
-            "Password=rslt4499;";
+            conn.ConnectionString = Constants.debugSqlConnection;
 #else
-            conn.ConnectionString = Helpers.GetRDSConnectionString();
+            conn.ConnectionString = Constants.prodSqlConnection;
 #endif
 
             string queryString = "INSERT INTO Feed (FeedTime, FeedType, FeedLocation, FeedGroupSize, FeedGrams, UserID ) VALUES " +
@@ -54,6 +59,10 @@ namespace Quack.Models
             return rowsEffected;
         }
 
+        /// <summary>
+        /// Retrieve all feedings from the database.
+        /// </summary>
+        /// <returns>A datatable object containing the sql results</returns>
         internal DataTable GetAllFeedings()
         {
             DataTable t = new DataTable();
@@ -61,13 +70,9 @@ namespace Quack.Models
             SqlConnection conn = new SqlConnection();
 
 #if DEBUG
-            conn.ConnectionString =
-            "Data Source=MATT-PC\\SQLEXPRESS;" +
-            "Initial Catalog=QuackDb;" +
-            "User id=matt;" +
-            "Password=rslt4499;";
+            conn.ConnectionString = Constants.debugSqlConnection;
 #else
-            conn.ConnectionString = Helpers.GetRDSConnectionString();
+            conn.ConnectionString = Constants.prodSqlConnection;
 #endif
 
 

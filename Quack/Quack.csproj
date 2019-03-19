@@ -135,10 +135,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="Content\css\home.css" />
+    <Content Include="Content\images\duck feed.jpg" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\mapbox-gl.css" />
     <Content Include="Migration\03-18-2019_02-Add Feed table.sql" />
     <Content Include="Migration\03-18-2019_01-Add Users Table.sql" />
-    <Compile Include="Models\Helpers.cs" />
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,7 +154,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\common.css" />
+    <Content Include="Content\common.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -176,6 +180,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\sneakerstreet.ca - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -228,7 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
