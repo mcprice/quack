@@ -21,4 +21,5 @@ To Do In Next Release:
 * More unit tests 
 * Add integration tests
 * More commenting
+* Add google analytics and minify js/css and images, optimize for mobile
 * Etc...
