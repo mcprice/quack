@@ -8,6 +8,14 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+.container.body-content {
+    padding: 20px 15px;
+}
+
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -54,8 +62,25 @@ textarea {
     border-radius: 3px;
 }
 
-/* Responsive CSS */
-
 .spacer-line-v {
     padding-right: 12px;
 }
+
+.bg-light {
+    background-color: #54892e26!important;
+}
+
+.not-at-top {
+    background-color: white !important;
+}
+
+.home .btn-lg {
+    color: #000!important;
+}
+
+.not-home .body-content {
+    padding: 20px 15px;{
+}
+
+/* Responsive CSS */
+

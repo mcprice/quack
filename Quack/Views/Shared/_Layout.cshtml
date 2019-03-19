@@ -6,26 +6,35 @@
     <title>@ViewBag.Title - Quack</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/js")
+    @RenderSection("ViewsJS")
     @using System.Text.RegularExpressions;
 
 </head>
 <body>
     @{
+        string pageTitle = ViewBag.Title;
         string titleClasses = Regex.Replace(ViewBag.Title, @"([a-z])([A-Z])", "$1-$2").ToLower();
 
-        string homeClasses = string.Empty;
-        if (ViewBag.Title == "Home")
+        string homeNavBarClasses = string.Empty;
+        string homeLoginHighlight = string.Empty;
+        if (pageTitle == "Home")
         {
-            homeClasses += "bg-transparent";
+            homeNavBarClasses += "bg-transparent";
+            homeLoginHighlight += "btn btn-success";
+
         }
         else
         {
-            homeClasses += "bg-light";
+            homeNavBarClasses += "bg-light";
+            titleClasses += " not-home";
         }
 
     }
     <div class="container-fluid body-content @titleClasses">
-        <div class="navbar navbar-expand-md navbar-light @homeClasses justify-content-between sticky-top">
+        <div class="navbar navbar-expand-md navbar-light @homeNavBarClasses justify-content-between sticky-top">
             <div class="container">
                 <a class="navbar-brand order-md-last" href="/">
                     <img style="width:80px;" src="~/Content/Images/logo.png" class="d-inline-block align-middle" alt="">
@@ -37,24 +46,34 @@
                         if (PageData["loggedIn"])
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Feeding/New">Report Feeding</a>
+                                <a class="nav-link text-dark">Welcome back, @PageData["userName"]!</a>
+                            </li>
+                            if (!pageTitle.Equals("Home"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="/">Home</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Report/NewFeeding"><span class="spacer-line-v">|</span>Report Feeding</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/user/logout">Logout</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark"><span class="spacer-line-v">|</span>Welcome back, @PageData["userName"]!</a>
-                            </li>
-
                         }
                         else
                         {
-
+                            if (!pageTitle.Equals("Home"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="/">Home</a>
+                                </li>
+                            }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/user/login">Login</a>
+                                <a class="nav-link @homeLoginHighlight text-dark" href="/user/login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-outline-light text-dark" href="/user/register">Register</a>
+                                <a class="nav-link text-dark" href="/user/register">Register</a>
                             </li>
 
                         }
@@ -73,10 +92,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/js")
-    @RenderSection("ViewsJS");
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -129,14 +129,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="Content\css\home.css" />
-    <Content Include="Content\css\login.css" />
-    <Content Include="Content\css\register.css" />
+    <Content Include="Content\mapbox-gl.css" />
+    <Content Include="Migration\03-18-2019_02-Add Feed table.sql" />
     <Content Include="Migration\03-18-2019_01-Add Users Table.sql" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -183,6 +185,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mapbox-gl.js" />
+    <Content Include="Scripts\js\newFeeding.js" />
     <Content Include="Scripts\js\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
@@ -218,6 +222,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Report\NewFeeding.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

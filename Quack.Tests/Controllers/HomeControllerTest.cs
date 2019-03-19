@@ -6,49 +6,29 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Quack;
 using Quack.Controllers;
+using Quack.Models;
 
 namespace Quack.Tests.Controllers
 {
     [TestClass]
-    public class HomeControllerTest
+    public class UserControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void TestUserRegistration()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            UserModel model = new UserModel();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            int? userID = model.Register("fakeemail@test.com", "fakePass", "fakeName");
 
             // Assert
-            Assert.IsNotNull(result);
-        }
+            Assert.IsNotNull(userID);
+            Assert.IsTrue(userID > 0);
 
-        [TestMethod]
-        public void About()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.About() as ViewResult;
-
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
-
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
+            // Cleanup (Ideally, would use mock db instance and avoid (like the plague) real data manipulation on same db as the live app )
+            int rowsDeleted = model.DeleteUser(userID);
+            Assert.AreEqual(1, rowsDeleted);
         }
     }
 }

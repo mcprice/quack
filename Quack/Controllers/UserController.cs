@@ -27,7 +27,7 @@ namespace Quack.Controllers
             return View("Login");
         }
 
-        // POST: User/Create
+        // POST: User/Login
         [HttpPost]
         public JsonResult Login(FormCollection collection)
         {
@@ -59,10 +59,9 @@ namespace Quack.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                String email = collection["email"];
-                String name = collection["name"];
-                String pass = collection["password"];
+                string email = collection["email"];
+                string name = collection["name"];
+                string pass = collection["password"];
 
                 var model = new UserModel();
 

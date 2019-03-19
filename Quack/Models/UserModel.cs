@@ -19,8 +19,8 @@ namespace Quack.Models
             "User id=matt;" +
             "Password=rslt4499;";
 
-            String queryString = "INSERT INTO Users (EmailAddress, Name, Password ) VALUES (@email, @name, @password)";
-            int rowsEffected = 0;
+            String queryString = "INSERT INTO Users (EmailAddress, Name, Password ) output INSERTED.UserID VALUES (@email, @name, @password)";
+            int insertedID = 0;
 
             using (conn)
             {
@@ -33,6 +33,44 @@ namespace Quack.Models
                 string hash = Encoding.ASCII.GetString(data);
 
                 command.Parameters.AddWithValue("@password", hash);
+
+                conn.Open();
+                try
+                {
+                    insertedID = (int)command.ExecuteScalar();
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    conn.Close();
+                }
+            }
+
+            return insertedID;
+        }
+
+        public int DeleteUser(int? userID)
+        {
+            // Early exit if no userid is passed in.
+            if (userID == null)
+            {
+                return 0;
+            }
+
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            "Data Source=MATT-PC\\SQLEXPRESS;" +
+            "Initial Catalog=QuackDb;" +
+            "User id=matt;" +
+            "Password=rslt4499;";
+
+            string queryString = "DELETE FROM dbo.Users WHERE UserID = @userID";
+            int rowsEffected = 0;
+
+            using (conn)
+            {
+                SqlCommand command = new SqlCommand(queryString, conn);
+                command.Parameters.AddWithValue("@userID", userID);
 
                 conn.Open();
                 try

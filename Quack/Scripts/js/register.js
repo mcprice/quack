@@ -22,6 +22,9 @@
                 else if (data === "2") {
                     alert("The account was not created because there is already an account associated with '" + jQuery("#email").val() + "'.");
                 }
+                else {
+                    alert("Something went wrong - your account may not have been created. Please try again or email mcprice0@gmail.com");
+                }
             }
         });
     });
